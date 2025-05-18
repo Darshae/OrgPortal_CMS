@@ -1,0 +1,30 @@
+﻿@{
+	ViewData["Title"] = "Create Announcement";
+}
+
+@model Announcement;
+
+<form asp-controller="announcement" asp-action="createannouncement">
+	<div class="mb-3">
+		<span>Title</span>
+		<input type="text" asp-for="Title" class="form-control" placeholder="Title..."/>
+	</div>
+	<div class="mb-3">
+		<span>Category</span>
+		<input type="text" asp-for="Category" class="form-control" placeholder="Category"/>
+	</div>
+	<div class="mb-3">
+		<span>Content</span>
+		<textarea type="textarea" asp-for="Content" class="form-control" placeholder="Content..."></textarea>
+	</div>
+	<div class="mb-3">
+		<span>Importance</span>
+		<select class="form-select" asp-for="Importance">
+			<option disabled selected value="">How urgent?</option>
+			<option value="High">High</option>
+			<option value="Medium">Medium</option>
+			<option value="Low">Low</option>
+		</select>
+	</div>
+	<button class="btn btn-primary" type="submit">Add</button>
+</form>
