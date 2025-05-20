@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,17 @@ namespace OrgPortal_CMS.Controllers
         {
 			try
 			{
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if(userId == null)
+                {
+                    return Unauthorized();
+                }
+
+                announcement.AuthorId = userId;
+                announcement.CreatedAt = DateTime.Now;
+                announcement.LastUpdatedAt = DateTime.Now;
+
 				await _context.Announcements.AddAsync(announcement);
 				await _context.SaveChangesAsync();
 				return RedirectToAction("Index");

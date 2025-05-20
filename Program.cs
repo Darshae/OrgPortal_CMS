@@ -1,11 +1,15 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OrgPortal_CMS.Areas.Identity.Data;
 using OrgPortal_CMS.Data;
+using OrgPortal_CMS.Services;
+using System.Threading.Tasks;
 
 namespace OrgPortal_CMS
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +17,13 @@ namespace OrgPortal_CMS
             builder.Services.AddControllersWithViews();
             builder.Services.AddAuthentication();
             builder.Services.AddAuthorization();
+            builder.Services.AddRazorPages();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Local")));
+
+            builder.Services.AddDefaultIdentity<OrgPortal_CMSUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>() 
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             var app = builder.Build();
 
@@ -31,11 +40,20 @@ namespace OrgPortal_CMS
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            using (var scope = app.Services.CreateScope())
+            {
+                await SeedData.InitializeAsync(scope.ServiceProvider);
+                Console.WriteLine("I worked");
+            }
 
             app.Run();
         }

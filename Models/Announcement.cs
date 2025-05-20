@@ -1,4 +1,6 @@
-﻿namespace OrgPortal_CMS.Models
+﻿using OrgPortal_CMS.Areas.Identity.Data;
+
+namespace OrgPortal_CMS.Models
 {
     public enum Importance
     {
@@ -14,8 +16,9 @@
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? LastUpdatedAt { get; set; } = DateTime.Now;
         public bool IsPublished { get; set; } = false;
-        public int AuthorId { get; set; }
         public string Category{ get; set; } = string.Empty ;
         public Importance Importance { get; set; }
+        public string AuthorId { get; set; }
+        public OrgPortal_CMSUser Author { get; set; }   
     }
 }

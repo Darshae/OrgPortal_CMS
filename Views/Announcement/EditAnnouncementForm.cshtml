@@ -6,6 +6,7 @@
 
 <form asp-controller="announcement" asp-action="editannouncement">
 	<input hidden asp-for="AnnouncementId" />
+	<input hidden asp-for="AuthorId"/>
 	<div class="mb-3">
 		<span>Title</span>
 		<input type="text" asp-for="Title" class="form-control" placeholder="Title..." />
