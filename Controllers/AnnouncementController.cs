@@ -1,6 +1,7 @@
 ﻿using System.Data.Common;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ using OrgPortal_CMS.Models;
 
 namespace OrgPortal_CMS.Controllers
 {
+    [Authorize]   
+    
     public class AnnouncementController : Controller
     {
         private readonly ApplicationDbContext _context;
