@@ -4,27 +4,47 @@
 
 @model Announcement;
 
+<a class="btn bg-transparent p-0 mb-3" asp-controller="announcement" asp-action="index"><i class="bi bi-arrow-left"></i> Return to Home</a>
+
 <form asp-controller="announcement" asp-action="createannouncement">
 	<div class="mb-3">
-		<span>Title</span>
+		<label asp-for="Title" class="form-label">Title</label>
 		<input type="text" asp-for="Title" class="form-control" placeholder="Title..."/>
 	</div>
 	<div class="mb-3">
-		<span>Category</span>
+		<label asp-for="Category" class="form-label">Category</label>
 		<input type="text" asp-for="Category" class="form-control" placeholder="Category"/>
 	</div>
 	<div class="mb-3">
-		<span>Content</span>
+		<label asp-for="Content" class="form-label">Content</label>
 		<textarea type="textarea" asp-for="Content" class="form-control" placeholder="Content..."></textarea>
 	</div>
 	<div class="mb-3">
-		<span>Importance</span>
+		<label asp-for="Importance" class="form-label">Importance</label>
 		<select class="form-select" asp-for="Importance">
 			<option disabled selected value="">How urgent?</option>
+			<option value="Critical">Critical</option>
 			<option value="High">High</option>
 			<option value="Medium">Medium</option>
 			<option value="Low">Low</option>
 		</select>
+	</div>
+	<div class="mb-3">
+		<label asp-for="Excerpt" class="form-label">Excerpt</label>
+		<input type="text" asp-for="Excerpt" class="form-control" placeholder="Short description of the announcement" />
+	</div>
+	<div class="mb-3">
+		<label asp-for="PostDateTime" class="form-label">When will it be posted?</label>
+		<input type="datetime-local" asp-for="PostDateTime" />
+	</div>
+	<p>Optional</p>
+	<div class="mb-3">
+		<label asp-for="AnnouncementStartDateTime" class="form-label">Announcement Start Date</label>
+		<input type="datetime-local" asp-for="AnnouncementStartDateTime" />
+	</div>
+	<div class="mb-3">
+		<label asp-for="AnnouncementEndDateTime" class="form-label">Announcement End Date</label>
+		<input type="datetime-local" asp-for="AnnouncementEndDateTime" />
 	</div>
 	<button class="btn btn-primary" type="submit">Add</button>
 </form>

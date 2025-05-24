@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["title"] = "Reviews";
+}
+
+@model List<Announcement>
+
+<table class="table">
+    <thead>
+        <tr>
+			<th>Title</th>
+			<th>Content</th>
+			<th>Category</th>
+			<th>Importance</th>
+			<th>Created At</th>
+			<th>Last Update</th>
+			@if (User.IsInRole("SuperAdmin"))
+			{
+				<th>Actions</th>
+			}
+        </tr>
+    </thead>
+	<tbody>
+		@foreach(var announcement in Model)
+		{
+			<tr>
+				<td>@announcement.Title</td>
+				<td>@announcement.Content</td>
+				<td>@announcement.Category</td>
+				<td>@announcement.Importance</td>
+				<td>@announcement.CreatedAt</td>
+				<td>@announcement.LastUpdatedAt</td>
+				@if(User.IsInRole("SuperAdmin"))
+				{
+					<td>
+						<form asp-controller="announcement" asp-action="ViewReview" asp-route-id="@announcement.AnnouncementId">
+							<button class="btn btn-light">
+								<i class="bi bi-eye"></i>
+							</button>
+						</form>
+					</td>
+				}
+			</tr>
+		}
+	</tbody>
+</table>

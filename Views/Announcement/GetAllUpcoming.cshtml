@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Upcoming";
+}
+
+@model List<Announcement>;
+
+<table class="table table-striped-columns">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Content</th>
+			<th>Category</th>
+			<th>Importance</th>
+			<th>Created At</th>
+			<th>Last Update</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var announcement in Model)
+		{
+			<tr>
+				<td>@announcement.Title</td>
+				<td>@announcement.Content</td>
+				<td>@announcement.Category</td>
+				<td>@announcement.Importance</td>
+				<td>@announcement.CreatedAt</td>
+				<td>@announcement.LastUpdatedAt</td>
+				<td>
+					<form asp-controller="announcement" asp-action="PublishAnnouncementNow" asp-route-id="@announcement.AnnouncementId">
+						<button type="submit" class="btn btn-danger"><i class="bi bi-cloud-arrow-up"></i></button>
+					</form>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>

@@ -1,0 +1,75 @@
+﻿@{
+	ViewData["Title"] = "All Announcements";
+}
+
+@model List<Announcement>;
+
+<table class="table table-striped-columns">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Excerpt</th>
+			<th>Category</th>
+			<th>Importance</th>
+			<th>Created At</th>
+			<th>Last Update</th>
+			@if (User.IsInRole("Author"))
+			{
+				<th>Status</th>
+			}
+			@if(User.IsInRole("SuperAdmin"))
+			{
+				<th>Author Id</th>
+				<th>Published</th>
+				<th>Actions</th>
+			}
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var announcement in Model)
+		{
+			<tr>
+				<td>@announcement.Title</td>
+				<td>@announcement.Excerpt</td>
+				<td>@announcement.Category</td>
+				<td>@announcement.Importance</td>
+				<td>@announcement.CreatedAt</td>
+				<td>@announcement.LastUpdatedAt</td>
+				@if (User.IsInRole("Author"))
+				{
+					<th>@announcement.Status</th>
+				}
+				@if (User.IsInRole("SuperAdmin"))
+				{
+					<td>@announcement.AuthorId</td>
+					@if (announcement.IsPublished == false)
+					{
+						<td>
+							<form asp-controller="announcement" asp-action="PublishAnnouncement" asp-route-id="@announcement.AnnouncementId">
+								<button class="btn btn-success">Publish</button>
+							</form>
+						</td>
+					}
+					else
+					{
+						<td>
+							<form asp-controller="announcement" asp-action="UnpublishAnnouncement" asp-route-id="@announcement.AnnouncementId">
+								<button class="btn btn-danger">Unpublish</button>
+							</form>
+						</td>
+					}
+					<td class="row">
+						<form asp-controller="announcement" asp-action="DeleteAnnouncement" asp-route-id="@announcement.AnnouncementId" class="col">
+							<button type="submit" class="btn btn-danger"><span class="bi bi-trash"></span></button>
+						</form>
+						<form asp-controller="announcement" asp-action="EditAnnouncementForm" asp-route-id="@announcement.AnnouncementId" class="col">
+							<button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i></button>
+						</form>
+					</td>
+				}
+			</tr>
+		}
+	</tbody>
+	<a class="btn btn-primary" asp-controller="announcement" asp-action="createannouncementform">Add Announcement</a>
+
+</table>

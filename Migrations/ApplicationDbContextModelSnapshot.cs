@@ -226,7 +226,6 @@ namespace OrgPortal_CMS.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -243,6 +242,46 @@ namespace OrgPortal_CMS.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("OrgPortal_CMS.Models.ActionLog", b =>
+                {
+                    b.Property<int>("ActionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ActionId"));
+
+                    b.Property<int>("AnnouncementId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ChangeDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ChangeTimestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedByUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NewStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OldStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ActionId");
+
+                    b.HasIndex("AnnouncementId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ActionsLogs");
+                });
+
             modelBuilder.Entity("OrgPortal_CMS.Models.Announcement", b =>
                 {
                     b.Property<int>("AnnouncementId")
@@ -250,6 +289,12 @@ namespace OrgPortal_CMS.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnnouncementId"));
+
+                    b.Property<DateTime>("AnnouncementEndDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("AnnouncementStartDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("AuthorId")
                         .IsRequired()
@@ -266,6 +311,10 @@ namespace OrgPortal_CMS.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Excerpt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Importance")
                         .HasColumnType("int");
 
@@ -274,6 +323,12 @@ namespace OrgPortal_CMS.Migrations
 
                     b.Property<DateTime?>("LastUpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PostDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -337,15 +392,37 @@ namespace OrgPortal_CMS.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("OrgPortal_CMS.Models.ActionLog", b =>
+                {
+                    b.HasOne("OrgPortal_CMS.Models.Announcement", "Announcement")
+                        .WithMany()
+                        .HasForeignKey("AnnouncementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrgPortal_CMS.Areas.Identity.Data.OrgPortal_CMSUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Announcement");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("OrgPortal_CMS.Models.Announcement", b =>
                 {
                     b.HasOne("OrgPortal_CMS.Areas.Identity.Data.OrgPortal_CMSUser", "Author")
-                        .WithMany()
+                        .WithMany("Announcements")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("OrgPortal_CMS.Areas.Identity.Data.OrgPortal_CMSUser", b =>
+                {
+                    b.Navigation("Announcements");
                 });
 #pragma warning restore 612, 618
         }

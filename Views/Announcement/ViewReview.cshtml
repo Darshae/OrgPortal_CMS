@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Review";
+}
+
+@model Announcement
+
+<div>
+    <h2>@Model.Title</h2>
+    <p>@Model.Content</p>
+    <p>@Model.Excerpt</p>
+    <p>@Model.PostDateTime</p>
+    <p>@Model.AnnouncementStartDateTime</p>
+    <p>@Model.AnnouncementEndDateTime</p>
+    <p>@Model.Importance</p>
+    <div class="d-inline-flex gap-2">
+        <form asp-controller="announcement" asp-action="approvereview" asp-route-id="@Model.AnnouncementId">
+            <button class="btn btn-success">Approve</button>
+        </form>
+        <form asp-controller="announcement" asp-action="revisereview" asp-route-id="@Model.AnnouncementId">
+            <button class="btn btn-info">Revise</button>
+        </form>
+        <form asp-controller="announcement" asp-action="denyreview" asp-route-id="@Model.AnnouncementId">
+            <button class="btn btn-danger">Deny</button>
+        </form>
+    </div>
+</div>

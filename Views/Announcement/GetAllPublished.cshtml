@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Published";
+}
+
+@model List<Announcement>;
+
+<table class="table table-striped-columns">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Content</th>
+			<th>Category</th>
+			<th>Importance</th>
+			<th>Created At</th>
+			<th>Last Update</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var announcement in Model)
+		{
+			<tr>
+				<td>@announcement.Title</td>
+				<td>@announcement.Content</td>
+				<td>@announcement.Category</td>
+				<td>@announcement.Importance</td>
+				<td>@announcement.CreatedAt</td>
+				<td>@announcement.LastUpdatedAt</td>
+				@if (announcement.IsPublished == false)
+				{
+					<td>
+						<form asp-controller="announcement" asp-action="PublishAnnouncement" asp-route-id="@announcement.AnnouncementId">
+							<button class="btn btn-success">Publish</button>
+						</form>
+					</td>
+				}
+				else
+				{
+					<td>
+						<form asp-controller="announcement" asp-action="UnpublishAnnouncement" asp-route-id="@announcement.AnnouncementId">
+							<button class="btn btn-danger">Unpublish</button>
+						</form>
+					</td>
+				}
+			</tr>
+		}
+	</tbody>
+</table>

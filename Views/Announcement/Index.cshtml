@@ -1,48 +1,16 @@
 ﻿@{
-	ViewData["Title"] = "Announcement";
+	ViewData["Title"] = "All Announcements";
 }
 
 @model List<Announcement>;
 
-<table class="table table-striped-columns">
-	<thead>
-		<tr>
-			<th>Title</th>
-			<th>Content</th>
-			<th>Category</th>
-			<th>Importance</th>
-			<th>Created At</th>
-			<th>Last Update</th>
-			<th>Author Id</th>
-			<th>Published</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var announcement in Model)
-		{
-			<tr>
-		
-				<td>@announcement.Title</td>
-				<td>@announcement.Content</td>
-				<td>@announcement.Category</td>
-				<td>@announcement.Importance</td>
-				<td>@announcement.CreatedAt</td>
-				<td>@announcement.LastUpdatedAt</td>
-				<td>@announcement.AuthorId</td>
-				<td>@announcement.IsPublished</td>
-				<td class="row">
-					<form asp-controller="announcement" asp-action="DeleteAnnouncement" asp-route-id="@announcement.AnnouncementId" class="col">
-						<button type="submit" class="btn btn-danger">Delete</button>
-					</form>
-					<form asp-controller="announcement" asp-action="EditAnnouncementForm" asp-route-id="@announcement.AnnouncementId" class="col">
-						<button type="submit" class="btn btn-secondary">Edit</button>
-					</form>
-				</td>
-
-			</tr>
-		}
-	</tbody>
-	<a class="btn btn-primary" asp-controller="announcement" asp-action="createannouncementform">Add Announcement</a>
-	
-</table>
+@foreach(var announcement in Model)
+{
+	<div>
+		<h2>@announcement.Title</h2>
+		<span>@announcement.CreatedAt</span>
+		<h4>@announcement.Excerpt</h4>
+		<span>@announcement.AnnouncementStartDateTime</span><span>@announcement.AnnouncementEndDateTime</span>
+		<p>@announcement.Author.FirstName @announcement.Author.LastName</p>
+	</div>
+}

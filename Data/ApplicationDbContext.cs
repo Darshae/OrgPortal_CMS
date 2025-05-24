@@ -16,6 +16,6 @@ namespace OrgPortal_CMS.Data
         }
 
         public DbSet<Announcement> Announcements { get; set; }
-
+        public DbSet<ActionLog> ActionsLogs { get; set; }
     }
 }

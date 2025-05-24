@@ -7,26 +7,24 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/OrgPortal_CMS.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <button class="btn bg-transparent" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                        <i class="bi bi-list"></i>
+                    </button>
+                </div>
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OrgPortal_CMS</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Announcement" asp-action="Index">Announcement</a>
-                        </li>
-                    </ul>
-                </div>
                 <form asp-area="identity" asp-page="/Account/Logout" method="post" class="d-inline">
                     <button class="btn btn-warning">Log Out</button>
                 </form>
@@ -37,6 +35,89 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+    </div>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Org Portal Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Announcement
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <ul>
+                                <li><a asp-controller="announcement" asp-action="index">Home</a></li>
+                                <li><a asp-controller="announcement" asp-action="CreateAnnouncementForm">Create Announcement</a></li>
+                                @if(User.IsInRole("Author"))
+                                {
+                                    <li><a asp-controller="announcement" asp-action="getalldrafts">Drafts</a></li>
+                                }
+                                @if (User.IsInRole("Author"))
+                                {
+                                    <li><a asp-controller="announcement" asp-action="getallrevisions">Revisions</a></li>
+                                }
+                                @if (User.IsInRole("Author"))
+                                {
+                                    <li><a asp-controller="announcement" asp-action="getallrevisions">Revisions</a></li>
+                                }
+                                @if(User.IsInRole("SuperAdmin"))
+                                {
+                                    <li><a asp-controller="announcement" asp-action="GetAllReviews">Reviews</a></li>
+                                }
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                                    <li><a asp-controller="announcement" asp-action="getallupcoming">Upcoming</a></li>
+                                }
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                                    <li><a asp-controller="announcement" asp-action="getallpublished">Published Announcements</a></li>
+                                }
+
+                                <li><a asp-controller="announcement" asp-action="getAllAnnouncements">All Announcements</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            Accordion Item #2
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>Create</li>
+                                <li>Edit</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            Accordion Item #3
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>Create</li>
+                                <li>Edit</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
