@@ -1,0 +1,32 @@
+﻿html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.dark-bg {
+    background-color: #012B4D;
+}
+
+.gray-bg {
+    background-color: #343434 !important;
+}
+
+.gray-bg.accordion-button::after {
+    filter: invert(1);
+}
+
+.gray-bg.accordion-button:focus {
+    box-shadow: 0 0 0 .15rem white;
+}
+
+.main-body {
+    min-height: calc(100dvh - 170px);
+}
+
+.white-invert {
+    filter: invert(1) !important;
+}
+
+.invert-after::after {
+    filter: invert(1) !important;
+}

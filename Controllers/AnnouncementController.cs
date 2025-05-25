@@ -22,22 +22,16 @@ namespace OrgPortal_CMS.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            ////////////////////////////////////// RETURNING ALL ANNOUNCEMENT BUT ON USER, IT SHOULD ONLY SHOW THEIR OWN ANNOUNCEMENT AND STATUS       /////////////////////////////////////////////////////////////////////////////////
             try
             {
-                var role = User.FindFirstValue(ClaimTypes.Role);
+                var announcements = await _context.Announcements.Include(a => a.Author).Where(a => a.IsPublished == true).ToListAsync();
 
-                if (role == "SuperAdmin")
+                if (announcements.Count == 0) 
                 {
-                    var announcements = await _context.Announcements.Include(a => a.Author).Where(a => a.IsPublished == true).ToListAsync();
-                    return View(announcements);
+                    return NotFound();
                 }
-                else
-                {
-                    var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var announcements = await _context.Announcements.Include(a => a.Author).Where(a => a.IsPublished == true).ToListAsync();
-                    return View(announcements);
-                }   
+
+                return View(announcements);
             }
             catch (Exception ex)
             {
@@ -140,8 +134,19 @@ namespace OrgPortal_CMS.Controllers
         {
             try
             {
-                var announcements = await _context.Announcements.ToListAsync();
-                return View(announcements);
+                var role = User.FindFirstValue(ClaimTypes.Role);
+
+                if (role == "SuperAdmin")
+                {
+                    var announcements = await _context.Announcements.Include(a => a.Author).Where(a => a.IsPublished == true).ToListAsync();
+                    return View(announcements);
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var announcements = await _context.Announcements.Include(a => a.Author).Where(a => a.AuthorId == userId).ToListAsync();
+                    return View(announcements);
+                }
             }
             catch (Exception ex)
             {
