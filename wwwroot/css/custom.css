@@ -4,19 +4,32 @@
 }
 
 .dark-bg {
-    background-color: #012B4D;
+    background-color: #012B4D !important;
 }
 
-.gray-bg {
+.offcanvas {
     background-color: #343434 !important;
 }
 
-.gray-bg.accordion-button::after {
+.accordion-button {
+    background-color: #343434 !important;
+}
+
+.accordion-button::after {
     filter: invert(1);
 }
 
-.gray-bg.accordion-button:focus {
+.accordion-button:focus {
     box-shadow: 0 0 0 .15rem white;
+}
+
+.list-group-item {
+    background-color: #343434 !important;
+    padding-left: 3rem;
+}
+
+.list-group-item:hover {
+    background-color: #210583 !important;
 }
 
 .main-body {
@@ -30,3 +43,8 @@
 .invert-after::after {
     filter: invert(1) !important;
 }
+
+.offcanvas-start.offcanvas-custom {
+    width: 300px !important;
+}
+

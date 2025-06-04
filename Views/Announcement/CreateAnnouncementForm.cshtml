@@ -4,7 +4,7 @@
 
 @model Announcement;
 
-<a class="btn bg-transparent p-0 mb-3" asp-controller="announcement" asp-action="index"><i class="bi bi-arrow-left"></i> Return to Home</a>
+<a class="btn btn-info mb-3" asp-controller="announcement" asp-action="index"><i class="bi bi-arrow-left"></i> Return to Home</a>
 
 <form asp-controller="announcement" asp-action="createannouncement">
 	<div class="mb-3">
@@ -46,5 +46,5 @@
 		<label asp-for="AnnouncementEndDateTime" class="form-label">Announcement End Date</label>
 		<input type="datetime-local" asp-for="AnnouncementEndDateTime" />
 	</div>
-	<button class="btn btn-primary" type="submit">Save</button>
+	<button class="btn btn-success" type="submit">Save</button>
 </form>

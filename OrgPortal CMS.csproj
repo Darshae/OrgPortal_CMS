@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>OrgPortal_CMS</RootNamespace>
+    <UserSecretsId>f9f87c33-85ad-47aa-9716-ae5ac13a6133</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

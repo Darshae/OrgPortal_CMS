@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "User Configuration";
+}
+
+@model UserViewModel;
+
+<h2>@ViewData["Title"]</h2>
+<form asp-controller="user" asp-action="editprofile">
+    <div class="mb-3">
+        <label asp-for="FirstName">FirstName</label>
+        <input type="text" asp-for="FirstName"/>
+    </div>
+    <div class="mb-3">
+        <label asp-for="LastName">LastName</label>
+        <input type="text" asp-for="LastName" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="DisplayName">DisplayName</label>
+        <input type="text" asp-for="DisplayName" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="DateOfBirth">Date of Birth</label>
+        <input type="datetime-local" asp-for="DateOfBirth" />
+    </div>
+    <button class="btn btn-primary" type="submit">Save Changes</button>
+</form>
