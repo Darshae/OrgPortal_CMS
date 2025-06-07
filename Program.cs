@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OrgPortal_CMS.Areas.Identity.Data;
 using OrgPortal_CMS.Data;
 using OrgPortal_CMS.Services;
+using OrgPortal_CMS.Services.Identity;
 using System.Threading.Tasks;
 
 namespace OrgPortal_CMS
@@ -24,6 +25,8 @@ namespace OrgPortal_CMS
             builder.Services.AddDefaultIdentity<OrgPortal_CMSUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>() 
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddScoped<IUserClaimsPrincipalFactory<OrgPortal_CMSUser>, ApplicationUserClaimsPrincipalFactory>();
 
             var app = builder.Build();
 

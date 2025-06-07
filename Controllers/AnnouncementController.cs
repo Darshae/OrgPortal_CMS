@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using OrgPortal_CMS.Data;
 using OrgPortal_CMS.Models;
+using OrgPortal_CMS.ViewModel;
 
 namespace OrgPortal_CMS.Controllers
 {
@@ -45,7 +46,7 @@ namespace OrgPortal_CMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAnnouncement(Announcement announcement)
+        public async Task<IActionResult> CreateAnnouncement(AnnouncementViewModel announcementViewModel)
         {
             try
             {
@@ -56,9 +57,28 @@ namespace OrgPortal_CMS.Controllers
                     return Unauthorized();
                 }
 
-                announcement.AuthorId = userId;
-                announcement.CreatedAt = DateTime.Now;
-                announcement.LastUpdatedAt = DateTime.Now;
+                var announcement = new Announcement
+                {
+                    Title = announcementViewModel.Title,
+                    Category = announcementViewModel.Category,
+                    Content = announcementViewModel.Content,
+                    Excerpt = announcementViewModel.Excerpt,
+                    Importance = announcementViewModel.Importance,
+                    PostDateTime = announcementViewModel.PostDateTime,
+                    AnnouncementStartDateTime = announcementViewModel.AnnouncementStartDateTime,
+                    AnnouncementEndDateTime = announcementViewModel.AnnouncementEndDateTime,
+
+					AuthorId = userId,
+					CreatedAt = DateTime.Now,
+					LastUpdatedAt = DateTime.Now
+				};
+
+                if(announcementViewModel.PictureFile != null && announcementViewModel.PictureFile.Length > 0)
+                {
+                    using var ms = new MemoryStream();
+                    await announcementViewModel.PictureFile.CopyToAsync(ms);
+                    announcement.Picture= ms.ToArray();
+                }
 
                 await _context.Announcements.AddAsync(announcement);
                 await _context.SaveChangesAsync();

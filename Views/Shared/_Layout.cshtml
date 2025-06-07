@@ -15,21 +15,22 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @if (User.Identity != null && User.Identity.IsAuthenticated)
-                    {
-                        <button class="btn bg-transparent" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                            <i class="bi bi-list text-light fs-4"></i>
-                        </button>
-                    }
-                </div>
-                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">OrgPortal_CMS</a>
+                
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <button class="btn bg-transparent" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                        <i class="bi bi-list text-light fs-4"></i>
+                    </button>
+                }
+                
+                <a class="navbar-brand text-light fs-3 me-auto" asp-area="" asp-controller="Home" asp-action="Index">OrgPortal_CMS</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 @if (User.Identity != null && User.Identity.IsAuthenticated)
-                {
+                {   
+                    <p class="m-0 me-2">@User.FindFirst("DisplayName")?.Value</p>
                     <form asp-area="identity" asp-page="/Account/Logout" method="post" class="d-inline">
                         <button class="btn btn-warning">Log Out</button>
                     </form>
@@ -95,8 +96,8 @@
                                     <li class="list-group-item text-light border-bottom">Published Announcements</li>
                                     </a>
                                 }
-                                <a asp-controller="announcement" asp-action="getAllAnnouncements" class="text-decoration-none">
-                                <li class="list-group-item text-light border-bottom">All Announcements</li>
+                                <a asp-controller="announcement" asp-action="getAllAnnouncements" class="button-effect">
+                                <li class="list-group-item gray-bg text-light ps-5 border-bottom">All Announcements</li>
                                 </a>
                             </ul>
                         </div>

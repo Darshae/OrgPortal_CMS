@@ -44,7 +44,22 @@
     filter: invert(1) !important;
 }
 
-.offcanvas-start.offcanvas-custom {
-    width: 300px !important;
+.button-effect {
+    position: relative;
+    text-decoration: none;
 }
 
+.button-effect::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: orange;
+    transition: width 0.3s ease;
+}
+
+.button-effect:hover::after {
+    width: 100%
+}

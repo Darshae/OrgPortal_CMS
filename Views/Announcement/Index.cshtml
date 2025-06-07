@@ -10,6 +10,13 @@
 		<h2>@announcement.Title</h2>
 		<span>@announcement.CreatedAt</span>
 		<h4>@announcement.Excerpt</h4>
+		@if (announcement.Picture != null)
+		{
+			var base64 = Convert.ToBase64String(announcement.Picture);
+			var imageSrc = $"data:image/png;base64, {base64}";
+
+			<img src ="@imageSrc" alt="Preview image" style="max-width: 800px; max-height: 500px"/>
+		}
 		<span>@announcement.AnnouncementStartDateTime</span><span>@announcement.AnnouncementEndDateTime</span>
 		<p>@announcement.Author.FirstName @announcement.Author.LastName</p>
 	</div>

@@ -8,11 +8,15 @@
     <h2>@Model.Title</h2>
     <p>@Model.Content</p>
     <p>@Model.Excerpt</p>
-    <p>@Model.PostDateTime</p>
-    <p>@Model.AnnouncementStartDateTime</p>
-    <p>@Model.AnnouncementEndDateTime</p>
     <p>@Model.Importance</p>
-    <div class="d-inline-flex gap-2">
+    @if(Model.Picture != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Picture);
+        var imageSrc = $"data:image/png;base64, {base64}";
+
+        <img src="@imageSrc" alt="Preview image" style="max-width: 800px; max-height: 500px" />
+    }
+    <div class="d-flex gap-2">
         <form asp-controller="announcement" asp-action="approvereview" asp-route-id="@Model.AnnouncementId">
             <button class="btn btn-success">Approve</button>
         </form>
@@ -23,4 +27,7 @@
             <button class="btn btn-danger">Deny</button>
         </form>
     </div>
+    <p>@Model.PostDateTime</p>
+    <p>@Model.AnnouncementStartDateTime</p>
+    <p>@Model.AnnouncementEndDateTime</p>
 </div>

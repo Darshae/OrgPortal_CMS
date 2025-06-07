@@ -32,6 +32,7 @@ namespace OrgPortal_CMS.Models
         public DateTime AnnouncementStartDateTime{ get; set; }
         public DateTime AnnouncementEndDateTime { get; set; }
         public DateTime PostDateTime { get; set; }
+        public byte[]? Picture { get; set; }
         public bool IsPublished { get; set; } = false;
         public string Category{ get; set; } = string.Empty ;
         public string Excerpt { get; set; } = string.Empty;
