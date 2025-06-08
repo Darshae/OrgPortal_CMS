@@ -60,40 +60,40 @@
                     <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
                         <div class="accordion-body p-0">
                             <ul class="list-group list-group-flush">
-                                <a asp-controller="announcement" asp-action="index" class="text-decoration-none">
-                                <li class="list-group-item text-light border-bottom">Home</li>
+                                <a asp-controller="announcement" asp-action="index" class="button-effect">
+                                <li class="list-group-item gray-bg text-light ps-5 border-bottom">Home</li>
                                 </a>
-                                <a asp-controller="announcement" asp-action="CreateAnnouncementForm" class="text-decoration-none">
-                                <li class="list-group-item text-light border-bottom">Create Announcement</li>
+                                <a asp-controller="announcement" asp-action="CreateAnnouncementForm" class="button-effect">
+                                <li class="list-group-item gray-bg text-light ps-5 border-bottom">Create Announcement</li>
                                 </a>
                                 @if(User.IsInRole("Author"))
                                 {
-                                    <a asp-controller="announcement" asp-action="getalldrafts" class="text-decoration-none">
-                                    <li class="list-group-item text-light border-bottom">Drafts</li>
+                                    <a asp-controller="announcement" asp-action="getalldrafts" class="button-effect">
+                                    <li class="list-group-item gray-bg text-light ps-5 border-bottom">Drafts</li>
                                     </a>
                                 }
                                 @if (User.IsInRole("Author"))
                                 {
-                                    <a asp-controller="announcement" asp-action="getallrevisions" class="text-decoration-none">
-                                    <li class="list-group-item text-light border-bottom">Revisions</li>
+                                    <a asp-controller="announcement" asp-action="getallrevisions" class="button-effect">
+                                    <li class="list-group-item gray-bg text-light ps-5 border-bottom">Revisions</li>
                                     </a>
                                 }
                                 @if(User.IsInRole("SuperAdmin"))
                                 {
-                                    <a asp-controller="announcement" asp-action="GetAllReviews" class="text-decoration-none">
-                                    <li class="list-group-item text-light border-bottom">Reviews</li>
+                                    <a asp-controller="announcement" asp-action="GetAllReviews" class="button-effect">
+                                    <li class="list-group-item gray-bg text-light ps-5 border-bottom">Reviews</li>
                                     </a>
                                 }
                                 @if (User.IsInRole("SuperAdmin"))
                                 {
-                                    <a asp-controller="announcement" asp-action="getallupcoming" class="text-decoration-none">
-                                    <li class="list-group-item text-light border-bottom">Upcoming</li>
+                                    <a asp-controller="announcement" asp-action="getallupcoming" class="button-effect">
+                                    <li class="list-group-item gray-bg text-light ps-5 border-bottom">Upcoming</li>
                                     </a>
                                 }
                                 @if (User.IsInRole("SuperAdmin"))
                                 {
-                                    <a asp-controller="announcement" asp-action="getallpublished" class="text-decoration-none">
-                                    <li class="list-group-item text-light border-bottom">Published Announcements</li>
+                                    <a asp-controller="announcement" asp-action="getallpublished" class="button-effect">
+                                    <li class="list-group-item gray-bg text-light ps-5 border-bottom">Published Announcements</li>
                                     </a>
                                 }
                                 <a asp-controller="announcement" asp-action="getAllAnnouncements" class="button-effect">
